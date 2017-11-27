@@ -1,5 +1,5 @@
 package ForTest;
-// first commit to new branch
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -12,6 +12,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class QAAutomationTest {
     private static FirefoxDriver driver;
@@ -53,14 +55,12 @@ public class QAAutomationTest {
             Assert.assertNull(e.getMessage());
         }
 
+
         String elCurrMonth = "//div[@class='freebirdFormviewerViewItemsTextItemWrapper']/.//input";
         driver.findElement(By.xpath(elCurrMonth)).sendKeys(dt.getMonth().toString());
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        try {
-            TimeUnit.SECONDS.sleep(1); // add adequate timeout
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        new WebDriverWait(driver, 1)
+                .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, 'HasError')]")));
         driver.findElement(By.xpath(nextButtonFirstStep)).click();
 
         // Filling second step questions
@@ -101,5 +101,4 @@ public class QAAutomationTest {
     @AfterClass
     public static void closeBrowser(){
         driver.quit();
-    }
-}
+}}
