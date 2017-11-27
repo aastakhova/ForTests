@@ -57,7 +57,7 @@ public class QAAutomationTest {
         driver.findElement(By.xpath(elCurrMonth)).sendKeys(dt.getMonth().toString());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
-            TimeUnit.SECONDS.sleep(1); //to add adequate timeout
+            TimeUnit.SECONDS.sleep(1); // add adequate timeout
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -65,20 +65,14 @@ public class QAAutomationTest {
 
         // Filling second step questions
         String movies = "House M.D., Friends, Now you see me";
+        String color = "Red";
         driver.findElement(By.xpath("//textarea[@class='quantumWizTextinputPapertextareaInput exportTextarea']")).sendKeys(movies);
-
         driver.findElement(By.xpath("//div[@class='quantumWizMenuPaperselectOptionList']")).click();
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         Actions actions = new Actions(driver);// to finish
-        actions.moveToElement(driver.findElement(By.xpath("//div[@data-value='Black']"))).perform();
-        driver.findElement(By.xpath("//div[@data-value='Black']/..")).click();
-
+        String pathToColor = String.format("//div[@class='exportSelectPopup quantumWizMenuPaperselectPopup']/div[@data-value='%s']", color);
+        actions.moveToElement(driver.findElement(By.xpath(pathToColor))).perform();
+        driver.findElement(By.xpath(pathToColor)).click();
         driver.findElement(By.xpath("//div[@class='freebirdFormviewerViewNavigationButtons']/div[1]")).click();
 
         // Returned to first step section
@@ -95,7 +89,7 @@ public class QAAutomationTest {
 
         String actualColor = driver.findElement(By.xpath("//div[@class='quantumWizMenuPaperselectOptionList']/./div[@aria-selected='true']"))
                 .getAttribute("data-value");
-        Assert.assertTrue("Actual and expected strings are not equal.", actualColor.equals("Grey"));
+        Assert.assertTrue("Actual and expected strings are not equal.", actualColor.equals(color));
         driver.findElement(By.xpath("//div[@class='freebirdFormviewerViewNavigationButtons']/div[2]")).click();
 
         //Third Step section
