@@ -1,4 +1,6 @@
 package ForTest;
+// first commit to new branch
+// second
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -55,7 +57,6 @@ public class QAAutomationTest {
             Assert.assertNull(e.getMessage());
         }
 
-
         String elCurrMonth = "//div[@class='freebirdFormviewerViewItemsTextItemWrapper']/.//input";
         driver.findElement(By.xpath(elCurrMonth)).sendKeys(dt.getMonth().toString());
 
@@ -101,4 +102,5 @@ public class QAAutomationTest {
     @AfterClass
     public static void closeBrowser(){
         driver.quit();
-}}
+    }
+}
